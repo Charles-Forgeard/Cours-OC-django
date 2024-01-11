@@ -1,0 +1,62 @@
+{% extends "listings/base.html" %}
+
+{% block band_detail %}
+<h1 class="text-2xl font-semibold">Vue détaillée du groupe</h1>
+<div class="inline-block border rounded-xl m-2 overflow-hidden">
+    <table class="table-auto">
+        <thead>
+            <tr class="rounded border-b">
+                <th colspan="2" class="p-2">{{band.name}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in band.items %}
+            {% if key != "name" and key != "_state" and key != "id" %}
+            <tr
+                class="{% if forloop.counter0|divisibleby:2 %}bg-gray-100{% endif %} {% if forloop.counter != band.items|length %}border-b{% endif %}">
+                <td class="p-2">{{key}}</td>
+                <td class="p-2 pl-6">
+                    {% if key == 'genre' %}{{band_instance.get_genre_display}}{% else %}{{value}}{%endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="inline-block border rounded-xl m-2 overflow-hidden">
+    <table class="table-auto">
+        <thead>
+            <tr class="rounded border-b">
+                <th colspan="2" class="p-2">Goodies</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if band_instance.listing_set.all|length == 0 %}
+            <tr>
+                <td class="p-2 text-gray-400">Aucun goodies</td>
+            </tr>
+            {% endif %}
+            {% for listing in band_instance.listing_set.all %}
+            <tr
+                class="{% if forloop.counter0|divisibleby:2 %}bg-gray-100{% endif %} {% if forloop.counter != band_instance.listing_set.all|length %}border-b{% endif %}">
+                <td class=" p-2">Goodies</td>
+                <td class="p-2 pl-6"><a href="{% url 'listing_detail' listing.id %}"
+                        class="block text-blue-600 visited:text-purple-600">{{listing.description}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="flex gap-6 mb-6">
+    <a href="{% url 'band_update' band_name=band.name %}"
+        class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Modifier groupe</a>
+    <a href="{% url 'band_create' %}"
+        class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Ajouter nouveau groupe</a>
+    <a href="{% url 'band_delete' band_name=band.name %}"
+        class="p-2 border rounded inline-block text-white bg-red-500 hover:bg-red-600 hover:border-black">Supprimer
+        groupe</a>
+</div>
+
+<a href="{% url 'band_list' %}" class="block text-blue-600 visited:text-purple-600">Retour à la liste des groupes</a>
+{% endblock %}

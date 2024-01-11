@@ -1,0 +1,42 @@
+{% extends "listings/base.html" %}
+
+{% block listing_detail %}
+<h1 class="text-2xl font-semibold">Vue détaillée du goodies</h1>
+<div class="inline-block border rounded-xl m-2 overflow-hidden">
+    <table class="table-auto">
+        <thead>
+            <tr class="rounded border-b">
+                <th colspan="2" class="p-2">{{listing.description}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in listing.items %}
+            {% if key != "name" and key != "_state" and key != "id" and key != "band_id" %}
+            <tr
+                class="{% if forloop.counter0|divisibleby:2 %}bg-gray-100{% endif %} {% if forloop.counter != band.items|length %}border-b{% endif %}">
+                <td class="p-2">{{key}}</td>
+                <td class="p-2 pl-6">
+                    {% if key == 'type' %}{{listing_instance.get_type_display}}{% else %}{{value}}{%endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            <tr>
+                <td class="p-2">band</td>
+                <td class="p-2 pl-6"><a href="{% url 'band_detail' band.name %}"
+                        class="block text-blue-600 visited:text-purple-600">{{band.name}}</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="flex gap-6 mb-6">
+    <a href="{% url 'listing_update' listing.id %}"
+        class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Modifier goodies</a>
+    <a href="{% url 'listings_create' %}"
+        class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Ajouter nouveau goodies</a>
+    <a href="{% url 'listing_delete' listing.id %}"
+        class="p-2 border rounded inline-block text-white bg-red-500 hover:bg-red-600 hover:border-black">Supprimer
+        goodies</a>
+</div>
+<a href="{% url 'band_list' %}" class="block text-blue-600 visited:text-purple-600">Retour à la liste des groupes</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+#init git repository
+git init
+
+#init project env
+python -m venv env
+env\Scripts\activate 
+
+#install django
+pip install django
+
+#save dependencies traces
+pip freeze > requirements.txt
+#(install dependencies = pip install -r requirements.txt)
+
+#create new project
+django-admin startprojet merchex
+
+#start dev server
+python manage.py runserver
+
+#create new application
+python manage.py startapp listings
+
+#migration in order to create table in database
+python manage.py makemigrations
+python manage.py migrate
+
+# administration
+python manage.py createsuperuser
+dans le fichier admin.py de l'app listings, donner accès à la table Band en ajoutant:
+admin.site.register(Band)

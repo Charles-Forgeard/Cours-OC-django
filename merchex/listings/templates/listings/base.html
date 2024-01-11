@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+{% load tailwind_tags %}
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchex</title>
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'listings/styles.css' %}" />
+</head>
+
+<body class="p-6">
+    <header class="mb-6">
+        <nav>
+            <a href="{% url 'band_list' %}"
+                class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Band list</a>
+            <a href="{% url 'listings' %}"
+                class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Goodies</a>
+            <a href="{% url 'contact' %}"
+                class="p-2 border rounded inline-block hover:bg-gray-100 hover:border-black">Contact us</a>
+        </nav>
+    </header>
+    <main class="mb-6">
+        {% block band_list %}{% endblock %}
+        {% block band_detail %}{% endblock %}
+        {% block listings_list %}{% endblock %}
+        {% block listing_detail %}{% endblock %}
+        {% block contact %}{% endblock %}
+        {% block email_sent %}{% endblock %}
+        {% block band_create %}{% endblock %}
+        {% block listings_create %}{% endblock %}
+        {% block band_update %}{% endblock %}
+        {% block listing_update %}{% endblock %}
+        {% block band_delete %}{% endblock %}
+        {% block listing_delete %}{% endblock %}
+    </main>
+
+
+</body>
+
+</html>

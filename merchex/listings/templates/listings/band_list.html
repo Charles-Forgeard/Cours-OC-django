@@ -1,0 +1,18 @@
+<!--listings/templates/listings/band_list.html-->
+
+{% extends "listings/base.html" %}
+
+{% block band_list %}
+<h1 class="text-2xl font-semibold">Groupes</h1>
+<h2 class="text-xl font-semibold">Mes groupes préférés:</h2>
+<ul class="inline-block p-2 list-disc list-inside mb-6">
+    {% for band in bands %}
+    <li class="p-2"><a href="{% url 'band_detail' band.name %}"
+            class="text-blue-600 visited:text-purple-600">{{band.name}}</a> -
+        <a href="{% url 'band_update' band_name=band.name %}"
+            class="text-blue-600 visited:text-purple-600">[modifier]</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'band_create' %}" class="block text-blue-600 visited:text-purple-600">Créer un nouveau groupe</a>
+{% endblock %}

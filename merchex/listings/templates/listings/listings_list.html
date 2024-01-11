@@ -1,0 +1,13 @@
+{% extends "listings/base.html" %}
+
+{% block listings_list %}
+<h1 class="text-2xl font-semibold">Goodies</h1>
+<h2 class="text-xl font-semibold">Tous les goodies:</h2>
+<ul class="inline-block p-2 list-disc list-inside mb-6">
+    {% for listing in listings_instance %}
+    <li class="p-2"><a href="{% url 'listing_detail' listing.id %}"
+            class="text-blue-600 visited:text-purple-600">{{listing.description}}</a></li>
+    {% endfor %}
+</ul>
+<a href="{% url 'listings_create' %}" class="block text-blue-600 visited:text-purple-600">Créer un nouveau goodies</a>
+{% endblock %}
